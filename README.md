@@ -39,7 +39,7 @@ The output will look like:
 # How to run
 1. If you do not have Python installed, download it from [here](https://www.python.org/downloads/).
 2. Run the command `pip install beautifulsoup4` to install the required packages.
-3. Download or clone this repo
+3. Download or clone this repo.
 4. Run the command `python app.py` to run the application.
 5. Select the HTML file you want to convert.
 
