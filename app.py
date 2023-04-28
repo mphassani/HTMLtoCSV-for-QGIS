@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import filedialog
 from bs4 import BeautifulSoup
 import csv
+import os
 
 
 def convert_html_to_csv(html_file_path):
@@ -19,25 +20,28 @@ def convert_html_to_csv(html_file_path):
         data.append([label, value])
 
     # Write the extracted data into a CSV file
-    with open('output.csv', 'w', newline='', encoding='utf-8') as csvfile:
+    output_file_name = os.path.splitext(
+        os.path.basename(html_file_path))[0] + ".csv"
+    with open(output_file_name, 'w', newline='', encoding='utf-8') as csvfile:
         csv_writer = csv.writer(csvfile)
         csv_writer.writerow(['Label', 'Value'])  # Header row
         csv_writer.writerows(data)
 
-    print("CSV file created successfully: output.csv")
+    print(f"CSV file created successfully: {output_file_name}")
 
 
 def main():
     root = tk.Tk()
     root.withdraw()  # Hide the main window
 
-    file_path = filedialog.askopenfilename(
-        title="Select an HTML file", filetypes=[("HTML files", "*.html")])
+    file_paths = filedialog.askopenfilenames(
+        title="Select HTML files", filetypes=[("HTML files", "*.html")])
 
-    if file_path:
-        convert_html_to_csv(file_path)
+    if file_paths:
+        for file_path in file_paths:
+            convert_html_to_csv(file_path)
     else:
-        print("No file selected. Exiting.")
+        print("No files selected. Exiting.")
 
 
 if __name__ == "__main__":
